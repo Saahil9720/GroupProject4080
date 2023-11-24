@@ -9,6 +9,8 @@ import Skill from './skill';
 import Experience from './experience';
 import Project from './project';
 import Footer from './footer';
+import GithubActivity from './githubapi/GithubActivity';
+
 import {
   genericError,
   getInitialTheme,
@@ -37,7 +39,6 @@ const GitProfile = ({ config }) => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [repo, setRepo] = useState(null);
-
   useEffect(() => {
     if (sanitizedConfig) {
       setTheme(getInitialTheme(sanitizedConfig.themeConfig));
@@ -182,8 +183,6 @@ const GitProfile = ({ config }) => {
                         loading={loading}
                         experiences={sanitizedConfig.experiences}
                       />
-                      
-                     
                     </div>
                   </div>
                   <div className="lg:col-span-2 col-span-1">
@@ -194,12 +193,18 @@ const GitProfile = ({ config }) => {
                         github={sanitizedConfig.github}
                         googleAnalytics={sanitizedConfig.googleAnalytics}
                       />
+
+                      <GithubActivity
+                        loading={loading}
+                        username={sanitizedConfig.github.username}
+                        theme={theme}
+                      />
+
                       <ExternalProject
                         loading={loading}
                         externalProjects={sanitizedConfig.externalProjects}
                         googleAnalytics={sanitizedConfig.googleAnalytics}
                       />
-                      
                     </div>
                   </div>
                 </div>
